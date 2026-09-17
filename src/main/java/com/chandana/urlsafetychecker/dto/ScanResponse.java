@@ -11,9 +11,11 @@ public class ScanResponse {
     private Classification classification;
     private int riskScore;
     private List<RiskSignal> signals;
+    private String finalUrl;
 
-    public ScanResponse(String url, Classification classification, int riskScore, List<RiskSignal> signals) {
+    public ScanResponse(String url, String finalUrl, Classification classification, int riskScore, List<RiskSignal> signals) {
         this.url = url;
+        this.finalUrl = finalUrl;
         this.classification = classification;
         this.riskScore = riskScore;
         this.signals = signals;
@@ -33,5 +35,9 @@ public class ScanResponse {
 
     public List<RiskSignal> getSignals() {
         return signals;
+    }
+
+    public String getFinalUrl() {
+        return finalUrl;
     }
 }

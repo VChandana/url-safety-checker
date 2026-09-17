@@ -1,5 +1,6 @@
 package com.chandana.urlsafetychecker.client;
 
+import com.chandana.urlsafetychecker.model.RedirectResult;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class UrlRedirectClient {
                 .build();
     }
 
-    public URI resolveFinalUrl(String url){
+    public RedirectResult resolveFinalUrl(String url){
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
@@ -40,12 +41,12 @@ public class UrlRedirectClient {
                         .build();
 
                 HttpResponse<Void> getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.discarding());
-                return getResponse.uri();
+                return new RedirectResult(getResponse.uri(),true);
             }
 
-            return response.uri();
+            return new RedirectResult(response.uri(),true);
         }catch (IOException | InterruptedException e){
-            return URI.create(url);
+            return new RedirectResult(URI.create(url),false);
         }
     }
 }
